@@ -2,105 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Introducing Chatgime</title>
+  <meta name="description" content="Chatgime — a multilingual, human-like AI assistant created by Shahriar Haque Shafi." />
   <style>
-    body {
-      background: #0f172a;
-      color: #e5e7eb;
-      font-family: system-ui, -apple-system, "Noto Sans Bengali", sans-serif;
-      margin: 0;
-      padding: 0;
+    :root{
+      --bg:#ffffff;         /* সাদা ব্যাকগ্রাউন্ড */
+      --text:#111827;       /* ডার্ক টেক্সট */
+      --muted:#6b7280;      /* ধূসর টেক্সট */
+      --card:#ffffff;       /* কার্ড ব্যাকগ্রাউন্ড */
+      --border:#e5e7eb;     /* হালকা বর্ডার */
+      --brand:#1f3a8a;      /* নীল বাটন */
+      --brand-hover:#1e40af;
+      --note-bg:#f8fafc;    /* হালকা ধূসর নোট */
+      --note-border:#e2e8f0;
+      --fab:#000000;        /* কালো চ্যাট আইকন */
+      --fab-border:#2b2b2b;
     }
-    .hero-wrap {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      text-align: left;
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans Bengali",sans-serif;
     }
-    .hero-card {
-      background: #0b1220;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    .hero-wrap{max-width:900px;margin:40px auto 20px;padding:0 20px}
+    .hero-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:24px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
     }
-    .hero-eyebrow {
-      color: #9ca3af;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .04em;
+    .hero-eyebrow{color:var(--muted);font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+    .hero-title{font-size:42px;line-height:1.2;font-weight:800;margin:10px 0 16px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-primary{
+      background:var(--brand);color:#fff;border:none;border-radius:999px;
+      padding:10px 18px;font-weight:700;cursor:pointer;font-size:15px
     }
-    .hero-title {
-      font-size: 42px;
-      line-height: 1.2;
-      font-weight: 800;
-      margin: 10px 0 20px;
+    .btn-primary:hover{background:var(--brand-hover)}
+    .note{
+      margin-top:14px;color:var(--muted);font-size:14px;
+      background:var(--note-bg);border:1px solid var(--note-border);
+      border-radius:12px;padding:10px 12px
     }
-    .hero-actions {
-      display: flex;
-      gap: 10px;
+    footer{max-width:900px;margin:40px auto 30px;padding:0 20px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* Floating chat icon (bottom-right) */
+    .chat-fab{
+      position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:50%;
+      background:var(--fab);color:#fff;border:1px solid var(--fab-border);
+      display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;
+      box-shadow:0 10px 30px rgba(0,0,0,.18);z-index:9999
     }
-    .btn-primary {
-      background: #1f3a8a;
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 18px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 15px;
-    }
-    .btn-primary:hover {
-      background: #1e40af;
-    }
-    .note {
-      margin-top: 14px;
-      color: #9ca3af;
-      font-size: 14px;
-      background: #0a0f1a;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      padding: 10px 12px;
-    }
-    /* Floating chat icon */
-    .chat-fab {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: #000;
-      color: #fff;
-      border: 1px solid #2b2b2b;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,.4);
-      z-index: 9999;
-    }
-    .chat-fab:hover {
-      transform: translateY(-2px);
-    }
-    footer {
-      text-align: center;
-      margin: 60px 0 20px;
-      color: #9ca3af;
-      font-size: 13px;
-    }
+    .chat-fab:hover{transform:translateY(-1px)}
   </style>
 </head>
 <body>
-<script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MORmd4SOvmlI7onYRKeDK";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script>
+
   <div class="hero-wrap">
     <div class="hero-card">
-      <div class="hero-eyebrow">November 30, 2022 · Product</div>
+      <!-- ✅ আজকের তারিখ সেট করা হলো -->
+      <div class="hero-eyebrow">October 29, 2025 · Product</div>
       <h1 class="hero-title">Introducing Chatgime</h1>
+
       <div class="hero-actions">
         <button class="btn-primary" onclick="openChat()">Try Chatgime ↗</button>
       </div>
@@ -119,15 +83,19 @@
   </footer>
 
   <script>
+    // Helper to focus/trigger the Chatbase widget after load
     function openChat(){
-      try {
+      try{
         const iframe = document.querySelector('iframe[src*="chatbase"]');
-        if (iframe) iframe.contentWindow?.focus();
-      } catch(e){ console.warn('Chat open fallback:', e); }
+        if (iframe) { iframe.contentWindow?.focus(); }
+        // কিছু থিমে কেবল ফোকাসেই ওপেন হয়; না হলে ইউজার নিচের কালো আইকনে ক্লিক করবে
+      }catch(e){ console.warn('Chat open fallback:', e); }
     }
   </script>
 
-  <!-- Chatbase Embed -->
+ <script>
+(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MORmd4SOvmlI7onYRKeDK";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script
   <script>
   (function(){
     if(!window.chatbase||window.chatbase("getState")!=="initialized"){
@@ -137,7 +105,7 @@
     const onLoad=function(){
       const s=document.createElement("script");
       s.src="https://www.chatbase.co/embed.min.js";
-      s.id="YOUR_EMBED_ID";    // ← এখানে তোমার Chatbase embed ID বসাও
+      s.id="YOUR_EMBED_ID";    /* ← এখানে তোমার Chatbase embed ID বসাও, যেমন: qh-QBSpTeK3Yu7CCsAA6D */
       s.domain="www.chatbase.co";
       document.body.appendChild(s);
     };
