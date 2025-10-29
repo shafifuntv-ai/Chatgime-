@@ -93,8 +93,26 @@
     }
   </script>
 
- <script>
-(function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="MORmd4SOvmlI7onYRKeDK";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-</script
+  <!-- ✅ Chatbase Embed (তোমার এম্বেড আইডি বসাও) -->
   <script>
+  (function(){
+    if(!window.chatbase||window.chatbase("getState")!=="initialized"){
+      window.chatbase=(...a)=>{(window.chatbase.q=window.chatbase.q||[]).push(a)};
+      window.chatbase=new Proxy(window.chatbase,{get(t,p){if(p==="q")return t.q;return(...a)=>t(p,...a)}});
+    }
+    const onLoad=function(){
+      const s=document.createElement("script");
+      s.src="https://www.chatbase.co/embed.min.js";
+      s.id="YOUR_EMBED_ID";    /* ← এখানে তোমার Chatbase embed ID বসাও, যেমন: qh-QBSpTeK3Yu7CCsAA6D */
+      s.domain="www.chatbase.co";
+      document.body.appendChild(s);
+    };
+    if(document.readyState==="complete") onLoad();
+    else window.addEventListener("load",onLoad);
+  })();
+  </script>
+
+</body>
+</html>
+
  
